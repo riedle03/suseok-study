@@ -11,17 +11,21 @@ AUD = ROOT / "public" / "audio"
 AUD.mkdir(exist_ok=True)
 html = HTML.read_text(encoding="utf-8")
 
-# 카드 텍스트 추출 (DOM 순서)
-cards = re.findall(r'<div class="card">.*?</div>', html, re.S)
+# 카드 텍스트 추출: 각 say 버튼의 소속 card를 div 카운팅으로 정확히 찾음
 texts = []
-for c in cards:
-    t = re.sub(r'<button class="say".*?</button>', "", c, flags=re.S)
-    t = re.sub(r"<[^>]+>", " ", t)
-    t = re.sub(r"\s+", " ", t).strip()
+for m in re.finditer(r'<button class="say"', html):
+    s = html.rfind('<div class="card">', 0, m.start())
+    i = s; d = 0
+    while True:
+        mo = re.search(r'<div\b|</div>', html[i:])
+        i += mo.end(); d += 1 if mo.group(0).startswith('<div') else -1
+        if d == 0: break
+    seg = html[s:i]
+    t = re.sub(r'<button class="say".*?</button>', '', seg, flags=re.S)
+    t = re.sub(r'<[^>]+>', ' ', t); t = re.sub(r'\s+', ' ', t).strip()
     texts.append(t)
-
 say_btns = re.findall(r'<button class="say"[^>]*>[^<]*</button>', html)
-assert len(say_btns) == len([t for t in texts if t]), (len(say_btns), len(texts))
+assert len(say_btns) == len(texts), (len(say_btns), len(texts))
 
 def tts(text, sha):
     models = ["eleven_v4", "eleven_v3", "eleven_multilingual_v2"]
