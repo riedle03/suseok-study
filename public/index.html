@@ -33,7 +33,7 @@ label.opt{display:block;border:1.5px solid var(--ln);border-radius:12px;padding:
 section{display:none}section.on{display:block;animation:fadeIn .25s}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
 footer{text-align:center;color:var(--sub);font-size:.8rem;padding:26px}
 </style></head><body>
-<header><h1>수석교사 준비 학습실</h1><p>수업컨설팅 · 개념 → 최신 논문 → 문제 → 면접</p><span class="ver">v3.3 · 2026-10-03</span></header>
+<header><h1>수석교사 준비 학습실</h1><p>수업컨설팅 · 개념 → 최신 논문 → 문제 → 면접</p><span class="ver">v3.4 · 2026-10-03</span></header>
 <main><nav id="nv"></nav>
 <section id="s0"><h2><span class="no">1</span>수업컨설팅이란</h2><p class="hint">정의 · 구별 · 원리 · 절차</p>
 <div class="card"><b>한 문장 정의</b> — <span class="kw">교사가 자발적으로 의뢰</span>하고, 전문가가 수평적 관계에서 진단·조언하며, <span class="kw">최종 선택·책임은 교사</span>에게 남는 수업 개선 전문 자문 활동 <button class="say" data-h="fc4c3d632bfd3231">🔊</button></div>
@@ -82,7 +82,7 @@ T.forEach(function(t,i){var b=document.createElement("button");b.textContent=t[1
 function bs(t){var u=new SpeechSynthesisUtterance(t);u.lang="ko-KR";speechSynthesis.cancel();speechSynthesis.speak(u)}
 document.addEventListener("click",function(e){
  if(e.target.classList&&e.target.classList.contains("say")){var b=e.target,c=b.closest(".card").cloneNode(true);c.querySelectorAll(".say").forEach(function(x){x.remove()});var txt=c.innerText.trim();b.classList.add("busy");
-  fetch("/audio/"+(b.dataset.h||"")+".mp3").then(function(r){if(!r.ok)throw 0;return r.blob()}).catch(function(){return fetch("/api/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:txt})}).then(function(r){return r.blob()})}).then(function(r){return r.ok?r.blob():r.json().then(function(j){throw new Error(j.err||"HTTP"+r.status)})}).then(function(blob){b.classList.remove("busy");new Audio(URL.createObjectURL(blob)).play()}).catch(function(err){b.classList.remove("busy");alert("ElevenLabs 실패 — 브라우저 음성으로 대체. "+err.message);bs(txt)});}
+  fetch("/audio/"+(b.dataset.h||"")+".mp3").then(function(r){if(!r.ok)throw new Error("no-mp3");return r.blob()}).then(function(blob){b.classList.remove("busy");new Audio(URL.createObjectURL(blob)).play()}).catch(function(e){b.classList.remove("busy");bs(txt)})}).catch(function(err){b.classList.remove("busy");alert("ElevenLabs 실패 — 브라우저 음성으로 대체. "+err.message);bs(txt)});}
  if(e.target.classList&&e.target.classList.contains("chk")){var q=e.target.closest(".q"),res=q.querySelector(".res"),exp=q.querySelector(".exp"),key=[].indexOf.call(document.querySelectorAll(".q"),q),cnt=(window.__t=window.__t||{})[key]=(window.__t[key]||0)+1,ok=true,labels;
   if(q.querySelector(".bf")){q.querySelectorAll(".bf").forEach(function(i){var g=i.value.replace(/\s+/g,"").toLowerCase()===i.dataset.k.replace(/\s+/g,"").toLowerCase();i.style.borderColor=g?"var(--ok)":"var(--bad)";if(!g)ok=false})}
   else{labels=q.querySelectorAll(".opts label");var n=0;labels.forEach(function(l,i){if(l.querySelector("input").checked)n=i+1});ok=String(n)===q.dataset.ans}
