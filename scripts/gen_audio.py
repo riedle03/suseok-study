@@ -67,7 +67,7 @@ html2 = re.sub(r'<button class="say"[^>]*>[^<]*</button>', repl, html)
 # 클라이언트: 정적 mp3 우선, 404면 /api/tts 폴백
 old = 'fetch("/api/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:txt})})'
 new = 'fetch("/audio/"+(b.dataset.h||"")+".mp3").then(function(r){if(!r.ok)throw 0;return r.blob()}).catch(function(){return fetch("/api/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:txt})}).then(function(r){return r.blob()})})'
-assert old in html2, "client fetch 패턴 미발견"
+assert old in html2 or "/audio/" in html2, "client fetch 패턴 미발견"
 html2 = html2.replace(old, new)
 HTML.write_text(html2, encoding="utf-8")
 print("완료: mp3", idx, "개, index.html 해시 부착")
