@@ -33,7 +33,7 @@ label.opt{display:block;border:1.5px solid var(--ln);border-radius:12px;padding:
 section{display:none}section.on{display:block;animation:fadeIn .25s}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
 footer{text-align:center;color:var(--sub);font-size:.8rem;padding:26px}
 </style></head><body>
-<header><h1>수석교사 준비 학습실</h1><p>수업컨설팅 · 개념 → 최신 논문 → 문제 → 면접</p><span class="ver">v3.4 · 2026-10-03</span></header>
+<header><h1>수석교사 준비 학습실</h1><p>수업컨설팅 · 개념 → 최신 논문 → 문제 → 면접</p><span class="ver">v3.6 · 2026-10-03</span></header>
 <main><nav id="nv"></nav>
 <section id="s0"><h2><span class="no">1</span>수업컨설팅이란</h2><p class="hint">정의 · 구별 · 원리 · 절차</p>
 <div class="card"><b>한 문장 정의</b> — <span class="kw">교사가 자발적으로 의뢰</span>하고, 전문가가 수평적 관계에서 진단·조언하며, <span class="kw">최종 선택·책임은 교사</span>에게 남는 수업 개선 전문 자문 활동 <button class="say" data-h="fc4c3d632bfd3231">🔊</button></div>
@@ -75,14 +75,14 @@ footer{text-align:center;color:var(--sub);font-size:.8rem;padding:26px}
 <section id="s6"><h2><span class="no">7</span>면접 스크립트</h2>
 <div class="card"><b>15초 · 개념</b><br>"수업컨설팅은 교사가 자발적으로 의뢰하고, 전문성을 갖춘 컨설턴트가 수평적 관계에서 진단해 대안을 제시하되 최종 선택과 책임은 교사에게 남는 활동입니다. 저는 답을 주는 사람이 아니라 교사가 자기 해답을 찾도록 자료와 질문을 설계하는 컨설턴트가 되겠습니다." <button class="say" data-h="9701c16320ce90bc">🔊</button></div>
 <div class="card"><b>30초 · 4편 연결</b><br>"신진주·임정훈(2024)에 따르면 수업컨설팅 연구는 수석교사제가 시행된 2010년에 폭발했지만 중등과 국어는 아직 공백입니다. 권희청 외(2021)는 전문성이 황금열쇠이고 선택·책임은 교사에게 있다고 했습니다. 박일수(2024)는 역량을 교직소양·일반역량·직무역량으로, 임다미 외(2025)는 나눔기의 역할을 컨설팅·코칭으로 규정했습니다. 저는 이 연구들이 가리키는 자리 — 중등 직업계고 국어, 나눔기의 컨설팅 — 을 수석교사로 채우겠습니다." <button class="say" data-h="4966990a14f45b77">🔊</button></div></section>
-<footer>2027 수석교사 준비 · v3.5 · 음성: 사전 생성 mp3 재생</footer></main>
+<footer>2027 수석교사 준비 · v3.6 · 음성: 사전 생성 mp3 재생</footer></main>
 <script>
 var T=[["s0","개념"],["s1","TEACHER"],["s2","최신 논문"],["s3","자기수업컨설팅"],["s4","빈칸"],["s5","선다형"],["s6","면접"]],nv=document.getElementById("nv");
 T.forEach(function(t,i){var b=document.createElement("button");b.textContent=t[1];b.onclick=function(){document.querySelectorAll("section").forEach(function(s){s.classList.remove("on")});document.getElementById(t[0]).classList.add("on");nv.querySelectorAll("button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");window.scrollTo(0,0)};if(i==0){b.classList.add("on");document.getElementById(t[0]).classList.add("on")}nv.appendChild(b)});
 function bs(t){var u=new SpeechSynthesisUtterance(t);u.lang="ko-KR";speechSynthesis.cancel();speechSynthesis.speak(u)}
 document.addEventListener("click",function(e){
  if(e.target.classList&&e.target.classList.contains("say")){var b=e.target,c=b.closest(".card").cloneNode(true);c.querySelectorAll(".say").forEach(function(x){x.remove()});var txt=c.innerText.trim();b.classList.add("busy");
-  fetch("/audio/"+(b.dataset.h||"")+".mp3").then(function(r){if(!r.ok)throw new Error("no-mp3");return r.blob()}).then(function(blob){b.classList.remove("busy");new Audio(URL.createObjectURL(blob)).play()}).catch(function(e){b.classList.remove("busy");bs(txt)})}).catch(function(err){b.classList.remove("busy");alert("ElevenLabs 실패 — 브라우저 음성으로 대체. "+err.message);bs(txt)});}
+  fetch("/audio/"+(b.dataset.h||"")+".mp3").then(function(r){if(!r.ok)throw new Error("no-mp3");return r.blob()}).then(function(blob){b.classList.remove("busy");new Audio(URL.createObjectURL(blob)).play()}).catch(function(e){b.classList.remove("busy");bs(txt)}).catch(function(err){b.classList.remove("busy");alert("ElevenLabs 실패 — 브라우저 음성으로 대체. "+err.message);bs(txt)});}
  if(e.target.classList&&e.target.classList.contains("chk")){var q=e.target.closest(".q"),res=q.querySelector(".res"),exp=q.querySelector(".exp"),key=[].indexOf.call(document.querySelectorAll(".q"),q),cnt=(window.__t=window.__t||{})[key]=(window.__t[key]||0)+1,ok=true,labels;
   if(q.querySelector(".bf")){q.querySelectorAll(".bf").forEach(function(i){var g=i.value.replace(/\s+/g,"").toLowerCase()===i.dataset.k.replace(/\s+/g,"").toLowerCase();i.style.borderColor=g?"var(--ok)":"var(--bad)";if(!g)ok=false})}
   else{labels=q.querySelectorAll(".opts label");var n=0;labels.forEach(function(l,i){if(l.querySelector("input").checked)n=i+1});ok=String(n)===q.dataset.ans}
