@@ -5,7 +5,7 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 ROOT = Path(r"C:\project\suseok-study")
-KEY = (Path(r"G:\내 드라이브\00_진행중\!!!2026_디지털 기반학습\elevenlabs api key.txt").read_text(encoding="utf-8").strip())
+KEY = (Path(r"C:\Users\lovyu\AppData\Local\eohaksil-secrets\elevenlabs.key").read_text(encoding="utf-8").strip())
 HTML = ROOT / "public" / "index.html"
 AUD = ROOT / "public" / "audio"
 AUD.mkdir(exist_ok=True)
